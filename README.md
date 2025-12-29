@@ -103,44 +103,56 @@ Application Flutter complète pour un centre commercial virtuel avec deux types 
 
 ## Structure du Projet
 
+```## 📁 Structure du Projet
 ```
 lib/
-├── main.dart                 # Point d'entrée de l'application
-├── model/                   # Modèles de données
-│   ├── commande.dart
-│   ├── login_model.dart
-│   ├── panier_model.dart
-│   ├── product_model.dart
-│   ├── store_model.dart
-├── service/                 # Services de gestion des données
-│   ├── auth_service.dart
-│   ├── shop_service.dart
-│   ├── product_service.dart
-│   ├── order_service.dart
-│   ├── cart_service.dart
-│   ├── review_service.dart
-│   └── message_service.dart
-└── screens/                  # Écrans de l'application
-    ├── bienvenue_screen.dart
-    ├── login_screen.dart
-    ├── vendor_register_screen.dart
-    ├── customer_register_screen.dart
-    ├── create_shop_screen.dart
-    ├── vendor_home_screen.dart
-    ├── add_product_screen.dart
-    ├── vendor_products_screen.dart
-    ├── edit_product_screen.dart
-    ├── vendor_orders_screen.dart
-    ├── vendor_statistics_screen.dart
-    ├── vendor_employees_screen.dart
-    ├── customer_home_screen.dart
-    ├── shop_list_screen.dart
-    ├── shop_detail_screen.dart
-    ├── product_detail_screen.dart
-    ├── cart_screen.dart
-    ├── customer_orders_screen.dart
-    ├── favorites_screen.dart
-    └── chat_screen.dart
+├── main.dart                      # Point d'entrée de l'application
+│
+├── model/                         # Modèles de données
+│   ├── commande.dart             # Modèle des commandes
+│   ├── login_model.dart          # Modèle d'authentification
+│   ├── panier_model.dart         # Modèle du panier
+│   ├── product_model.dart        # Modèle des produits
+│   └── store_model.dart          # Modèle des magasins
+│
+├── service/                       # Services de gestion des données
+│   ├── auth_service.dart         # Service d'authentification
+│   ├── shop_service.dart         # Service de gestion des magasins
+│   ├── product_service.dart      # Service de gestion des produits
+│   ├── order_service.dart        # Service de gestion des commandes
+│   ├── cart_service.dart         # Service de gestion du panier
+│   ├── review_service.dart       # Service de gestion des avis
+│   └── message_service.dart      # Service de messagerie/chat
+│
+└── screens/                       # Écrans de l'application
+    │
+    ├── bienvenue_screen.dart                # Écran de bienvenue
+    ├── login_screen.dart                    # Écran de connexion
+    │
+    ├── # INSCRIPTION
+    ├── vendor_register_screen.dart          # Inscription vendeur
+    ├── customer_register_screen.dart        # Inscription client
+    │
+    ├── # VENDEURS
+    ├── create_shop_screen.dart              # Création de magasin
+    ├── vendor_home_screen.dart              # Tableau de bord vendeur
+    ├── add_product_screen.dart              # Ajout de produit
+    ├── vendor_products_screen.dart          # Liste des produits du vendeur
+    ├── edit_product_screen.dart             # Modification de produit
+    ├── vendor_orders_screen.dart            # Gestion des commandes
+    ├── vendor_statistics_screen.dart        # Statistiques de vente
+    ├── vendor_employees_screen.dart         # Gestion des employés
+    │
+    ├── # CLIENTS
+    ├── customer_home_screen.dart            # Page d'accueil client
+    ├── shop_list_screen.dart                # Liste des boutiques
+    ├── shop_detail_screen.dart              # Détails d'une boutique
+    ├── product_detail_screen.dart           # Détails d'un produit
+    ├── cart_screen.dart                     # Panier d'achat
+    ├── customer_orders_screen.dart          # Historique des commandes client
+    ├── favorites_screen.dart                # Produits favoris
+    └── chat_screen.dart                     # Messagerie avec les vendeurs
+```
 ```
 
 ## Installation
@@ -212,14 +224,3 @@ Pour une application de production, il est recommandé d'utiliser :
 
 Ce projet est une application Flutter pour une marketplace e-commerce.
 
-
-
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
