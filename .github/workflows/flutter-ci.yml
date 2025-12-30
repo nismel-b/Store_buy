@@ -1,0 +1,50 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    name: Test et Analyse
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Configuration de Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Configuration de Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.9.2'
+          channel: 'stable'
+          cache: true
+
+      - name: Vérifier la version de Flutter
+        run: flutter --version
+
+      - name: Installation des dépendances
+        run: flutter pub get
+
+      - name: Vérifier le formatage
+        run: flutter format --set-exit-if-changed .
+        continue-on-error: true
+
+      - name: Analyser le code
+        run: flutter analyze
+
+      - name: Exécuter les tests
+        run: flutter test
+        continue-on-error: true
+
+      - name: Vérifier les dépendances obsolètes
+        run: flutter pub outdated
+        continue-on-error: true

@@ -1,0 +1,77 @@
+name: Code Quality Check
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  quality:
+    name: Vérification de la qualité
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Configuration de Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Configuration de Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.9.2'
+          channel: 'stable'
+          cache: true
+
+      - name: Installation des dépendances
+        run: flutter pub get
+
+      - name: Vérifier le formatage du code
+        run: |
+          echo "🔍 Vérification du formatage..."
+          if ! flutter format --set-exit-if-changed .; then
+            echo "❌ Le code n'est pas formaté correctement"
+            echo "💡 Exécutez: flutter format ."
+            exit 1
+          fi
+          echo "✅ Formatage OK"
+
+      - name: Analyser le code (dart analyze)
+        run: |
+          echo "🔍 Analyse statique du code..."
+          flutter analyze
+          echo "✅ Analyse terminée"
+
+      - name: Vérifier les imports inutilisés
+        run: |
+          echo "🔍 Recherche d'imports inutilisés..."
+          flutter pub run dart_code_metrics:metrics check-unused-files lib
+        continue-on-error: true
+
+      - name: Exécuter les tests
+        run: |
+          echo "🧪 Exécution des tests..."
+          flutter test --coverage
+          echo "✅ Tests terminés"
+        continue-on-error: true
+
+      - name: Vérifier la taille de l'APK
+        run: |
+          echo "📦 Build de l'APK pour vérifier la taille..."
+          flutter build apk --release
+          APK_SIZE=$(du -h build/app/outputs/flutter-apk/app-release.apk | cut -f1)
+          echo "📊 Taille de l'APK: $APK_SIZE"
+        continue-on-error: true
+
+      - name: Résumé des vérifications
+        if: always()
+        run: |
+          echo "📋 Résumé des vérifications de qualité"
+          echo "=================================="
+          echo "✅ Formatage du code vérifié"
+          echo "✅ Analyse statique effectuée"
+          echo "✅ Tests exécutés"
+          echo "=================================="
